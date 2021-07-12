@@ -1,29 +1,22 @@
-import axios from 'axios';
-import Config from 'react-native-config';
-
-import { getToken } from 'src/utils';
+import axios from "axios";
+import Config from "react-native-config";
 
 const provider = axios.create({
-  baseURL: Config.API_URL_Lyrics
+  baseURL: Config.API_URL_MUSIXMATCH,
 });
 
-console.log(Config.API_URL_Lyrics);
-
-provider.interceptors.request.use(async ({ headers, ...config }) => {
-  const token = await getToken();
-
+provider.interceptors.request.use(async ({ headers, params, ...config }) => {
   return {
     ...config,
-    headers: {
-      ...headers,
-      Authorization: token ? `Bearer ${token}` : ''
-    }
+    params: {
+      apikey: Config.API_KEY_CREDENTIALS,
+    },
   };
 });
 
 provider.interceptors.response.use(
-  response => response?.data,
-  err => Promise.reject(err?.response?.data)
+  (response) => response?.data,
+  (err) => Promise.reject(err?.response?.data)
 );
 
 export default provider;
