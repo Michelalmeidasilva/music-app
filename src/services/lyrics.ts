@@ -1,9 +1,11 @@
-import fetchClient from 'src/providers/fetchClient';
-import { AxiosResponse } from 'axios';
+import fetchClient from "src/providers/fetchClient";
+import { AxiosResponse } from "axios";
 
-interface ArtistsTitleParams {
-  (artist: string, title: string): Promise<AxiosResponse<any>>;
+import { encodeQueryData } from "src/utils";
+
+interface IdParams {
+  (id: number): Promise<AxiosResponse<any>>;
 }
 
-export const getLyricsByArtistsAndTitle: ArtistsTitleParams = (artist, title) =>
-  fetchClient.get(`${artist}/${title}`);
+export const getLyrics: IdParams = (id) =>
+  fetchClient.get("track.lyrics.get?" + encodeQueryData({ track_id: id }));
