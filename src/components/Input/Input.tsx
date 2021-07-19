@@ -1,12 +1,19 @@
-import React, { ForwardRefRenderFunction, useMemo, useState, forwardRef } from 'react';
-import { TextInputProps, Platform, TouchableOpacity } from 'react-native';
-import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { useTheme } from '@react-navigation/native';
+import React, {
+  ForwardRefRenderFunction,
+  useMemo,
+  useState,
+  forwardRef,
+} from "react";
+import { TextInputProps, Platform, TouchableOpacity } from "react-native";
+import styled from "styled-components/native";
+import Icon from "react-native-vector-icons/FontAwesome";
+import { useTheme } from "@react-navigation/native";
 
-import { Column, ColumnProps, Text } from 'src/components';
+import { Column, ColumnProps, Text } from "src/components";
 
-interface InputComponentProps extends Omit<TextInputProps, 'style'>, ColumnProps {
+interface InputComponentProps
+  extends Omit<TextInputProps, "style">,
+    ColumnProps {
   label?: string;
   error?: string;
   callToAction?(): void;
@@ -28,79 +35,94 @@ export interface InputRef {
   focus(): void;
 }
 
-const InputComponent: ForwardRefRenderFunction<InputRef, InputComponentProps> = (
-  {
-    multiline,
-    editable = true,
-    secureTextEntry = false,
-    label,
-    error,
-    placeholder,
-    testID,
-    value,
-    autoCapitalize = 'none',
-    callToAction,
-    onChangeText,
-    keyboardType,
-    ...rest
-  },
-  ref
-) => {
-  const { colors } = useTheme();
+const InputComponent: ForwardRefRenderFunction<InputRef, InputComponentProps> =
+  (
+    {
+      multiline,
+      editable = true,
+      secureTextEntry = false,
+      label,
+      error,
+      placeholder,
+      testID,
+      value,
+      autoCapitalize = "none",
+      callToAction,
+      onChangeText,
+      keyboardType,
+      ...rest
+    },
+    ref
+  ) => {
+    const { colors } = useTheme();
 
-  const getColor = useMemo(() => {
-    if (error) {
-      return colors.error;
-    }
+    const getColor = useMemo(() => {
+      if (error) {
+        return colors.error;
+      }
 
-    return editable ? colors.gray.n500 : colors.gray.n200;
-  }, [error, editable]);
+      return editable ? colors.gray.n500 : colors.gray.n200;
+    }, [error, editable]);
 
-  const [isFocused, setIsFocused] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
-  return (
-    <Column width='100%' my='5px'>
-      {label && (
-        <Text color={getColor} variant='small' mb='5px'>
-          {label}
-        </Text>
-      )}
+    return (
+      <Column width="100%" my="5px">
+        {label && (
+          <Text color={getColor} variant="small" mb="5px">
+            {label}
+          </Text>
+        )}
 
-      <InputContainer error={error} isFocused={isFocused} editable={editable} multiline={multiline}>
-        <StyledInput
+        <InputContainer
+          error={error}
+          isFocused={isFocused}
           editable={editable}
           multiline={multiline}
-          secureTextEntry={secureTextEntry}
-          placeholder={placeholder}
-          autoCapitalize={autoCapitalize}
-          value={value}
-          ref={ref}
-          onFocus={() => setIsFocused(true)}
-          onChangeText={onChangeText}
-          onBlur={() => setIsFocused(false)}
-          testID={testID}
-          {...rest}
-        />
+        >
+          <StyledInput
+            editable={editable}
+            multiline={multiline}
+            secureTextEntry={secureTextEntry}
+            placeholder={placeholder}
+            autoCapitalize={autoCapitalize}
+            value={value}
+            ref={ref}
+            onFocus={() => setIsFocused(true)}
+            onChangeText={onChangeText}
+            onBlur={() => setIsFocused(false)}
+            testID={testID}
+            {...rest}
+          />
 
-        {callToAction && (
-          <TouchableOpacity style={{ marginRight: 8 }} onPress={() => callToAction()}>
-            <Icon
-              name={secureTextEntry ? 'eye' : 'eye-slash'}
-              size={20}
-              color={editable ? (isFocused ? colors.primary : colors.gray.n500) : colors.gray.n200}
-            />
-          </TouchableOpacity>
+          {callToAction && (
+            <TouchableOpacity
+              style={{ marginRight: 8 }}
+              onPress={() => callToAction()}
+            >
+              <Icon
+                name={secureTextEntry ? "eye" : "eye-slash"}
+                size={20}
+                color={
+                  editable
+                    ? isFocused
+                      ? colors.primary
+                      : colors.gray.n500
+                    : colors.gray.n200
+                }
+              />
+            </TouchableOpacity>
+          )}
+        </InputContainer>
+
+        {error && (
+          <Text color="error" variant="smaller" marginTop="5px">
+            {error}
+          </Text>
         )}
-      </InputContainer>
-
-      {error && (
-        <Text color='error' variant='smaller' marginTop='5px'>
-          {error}
-        </Text>
-      )}
-    </Column>
-  );
-};
+      </Column>
+    );
+  };
 
 const InputContainer = styled.View<StyledColumnProps>`
   ${({ theme: { colors }, error, editable, isFocused, multiline, ...rest }) => {
@@ -127,20 +149,22 @@ const InputContainer = styled.View<StyledColumnProps>`
       flex-direction: row;
       height: 40px;
 
-      ${error ? errorStyle : ''}
-      ${isFocused ? focusedStyle : ''}
-      ${!editable ? disabledStyle : ''}
-      ${multiline ? textAreaStyle : ''}
+      ${error ? errorStyle : ""}
+      ${isFocused ? focusedStyle : ""}
+      ${!editable ? disabledStyle : ""}
+      ${multiline ? textAreaStyle : ""}
     `;
   }}
 `;
 
-const StyledInput = styled.TextInput.attrs(({ theme: { colors }, multiline, ...rest }) => ({
-  autoCapitalize: 'none',
-  placeholderTextColor: colors.gray.n500,
-  textAlignVertical: multiline && Platform.OS === 'android' && 'top',
-  ...rest
-}))<StyledInputProps>`
+const StyledInput = styled.TextInput.attrs(
+  ({ theme: { colors }, multiline, ...rest }) => ({
+    autoCapitalize: "none",
+    placeholderTextColor: colors.gray.n500,
+    textAlignVertical: multiline && Platform.OS === "android" && "top",
+    ...rest,
+  })
+)<StyledInputProps>`
   flex: 1;
   height: 100%;
   padding: 8px 10px;

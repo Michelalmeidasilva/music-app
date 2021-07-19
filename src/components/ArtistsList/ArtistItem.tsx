@@ -1,29 +1,64 @@
 import React, { FC } from "react";
 
-import { Column, Text } from "src/components";
+import { TouchableOpacityProps, Image } from "react-native";
+import styled from "styled-components/native";
 
-export interface Artist {
-  artist_id: number;
-  artist_name: string;
-  artist_country: "US";
-  artist_rating: number;
-  artist_twitter: string;
-  artist_alias_list: string[];
+import { useNavigation } from "@react-navigation/native";
+import { Column, Text } from "src/components";
+import { ColumnProps } from "../Column";
+
+export interface ArtistItemProps {
+  id: number;
+  name: string;
+  country?: "US";
+  rating?: number;
+  twitter?: string;
+  image_path?: string;
+  aliasList?: string[];
 }
 
-const ArtistItemComponent: FC<Artist> = ({
-  artist_id,
-  artist_name,
-  artist_country,
-  artist_rating,
-  artist_twitter,
-}) => (
-  <Column key={artist_id}>
-    <Text>{artist_name}</Text>
-    <Text>{artist_country}</Text>
-    <Text>{artist_rating}</Text>
-    <Text>{artist_twitter}</Text>
-  </Column>
-);
+const ArtistItemComponent: FC<ArtistItemProps> = ({
+  id,
+  name,
+  twitter,
+  image_path,
+}): JSX.Element => {
+  const navigation = useNavigation();
+
+  return (
+    <ItemContainer key={id} onPress={() => navigation.push("Artist")}>
+      <Column p="5px">
+        <Image
+          source={{
+            uri:
+              image_path ||
+              "http://distribuidorajhs.com.br/wp-content/uploads/2019/05/sem-foto.gif",
+          }}
+          style={{ width: 40, height: 40, borderRadius: 40 }}
+        />
+      </Column>
+
+      <Column pl="10px">
+        <Text fontSize="14px" fontWeight={700} color="white">
+          {name}
+        </Text>
+
+        <Text fontSize="12px" fontWeight={400} color="white">
+          Artist
+        </Text>
+
+        <Text>{twitter}</Text>
+      </Column>
+    </ItemContainer>
+  );
+};
+
+interface ItemContainerProps extends ColumnProps, TouchableOpacityProps {}
+
+const ItemContainer: FC<ItemContainerProps> = styled.TouchableOpacity<ItemContainerProps>`
+  flex-direction: row;
+  width: 100%;
+  padding: 10px;
+`;
 
 export default ArtistItemComponent;
