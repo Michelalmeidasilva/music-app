@@ -1,17 +1,26 @@
-import React, { FC } from 'react';
-import { StatusBar } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NavigationContainer, DefaultTheme, ExtendedTheme } from '@react-navigation/native';
-import { ThemeProvider } from 'styled-components/native';
+import React, { FC } from "react";
+import { StatusBar } from "react-native";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import {
+  NavigationContainer,
+  DefaultTheme,
+  ExtendedTheme,
+} from "@react-navigation/native";
 
-import { AppProviders } from 'src/context';
+import { createGlobalStyle } from "styled-components";
 
-import { theme } from 'src/theme';
+import { ThemeProvider } from "styled-components/native";
 
-import Routes from '../Routes';
+import { AppProviders } from "src/context";
+
+import { theme } from "src/theme";
+
+import Routes from "../Routes";
 
 if (__DEV__) {
-  import('../ReactotronConfig').then(() => console.log('Reactotron Configured'));
+  import("../ReactotronConfig").then(() =>
+    console.log("Reactotron Configured")
+  );
 }
 
 const App: FC = () => {
@@ -19,8 +28,8 @@ const App: FC = () => {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      ...theme.colors
-    }
+      ...theme.colors,
+    },
   };
 
   return (
@@ -33,11 +42,16 @@ const App: FC = () => {
 };
 
 export default (): JSX.Element => (
-  <ThemeProvider theme={theme}>
-    <AppProviders>
-      <StatusBar backgroundColor={theme.colors.secondary} barStyle='dark-content' />
+  <>
+    <ThemeProvider theme={theme}>
+      <AppProviders>
+        <StatusBar
+          backgroundColor={theme.colors.secondary}
+          barStyle="dark-content"
+        />
 
-      <App />
-    </AppProviders>
-  </ThemeProvider>
+        <App />
+      </AppProviders>
+    </ThemeProvider>
+  </>
 );
