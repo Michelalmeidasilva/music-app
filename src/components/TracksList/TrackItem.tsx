@@ -7,15 +7,23 @@ import { useNavigation } from "@react-navigation/native";
 import { Column, Text } from "src/components";
 import { ColumnProps } from "../Column";
 
-export interface MusicItemProps {
-  id: string;
+export interface TrackItemProps {
+  id: number;
   name: string;
-  image_path?: string;
+  album_name: string;
+  album_id: number;
+  artist_name: string;
+  artist_id: number;
+  image_path: string;
 }
 
-const MusicItemComponent: FC<MusicItemProps> = ({
+const TrackItemComponent: FC<TrackItemProps> = ({
   id,
   name,
+  album_name,
+  album_id,
+  artist_name,
+  artist_id,
   image_path,
 }): JSX.Element => {
   const navigation = useNavigation();
@@ -32,7 +40,6 @@ const MusicItemComponent: FC<MusicItemProps> = ({
           style={{ width: 40, height: 40, borderRadius: 40 }}
         />
       </Column>
-
       <Column pl="10px">
         <Text fontSize="14px" fontWeight={700} color="white">
           {name}
@@ -54,4 +61,4 @@ const ItemContainer: FC<ItemContainerProps> = styled.TouchableOpacity<ItemContai
   padding: 10px;
 `;
 
-export default MusicItemComponent;
+export default TrackItemComponent;

@@ -10,7 +10,7 @@ import { ColumnProps } from "../Column";
 export interface ArtistItemProps {
   id: number;
   name: string;
-  country?: "US";
+  country?: string;
   rating?: number;
   twitter?: string;
   image_path?: string;

@@ -6,7 +6,7 @@ import { Column, Row } from "src/components";
 
 import { getArtists } from "src/services";
 
-import { SearchProps } from "src/components/MusicsList";
+import { SearchProps } from "src/components/TracksList";
 
 const LIMIT_SEARCH_ARTISTS = 1;
 

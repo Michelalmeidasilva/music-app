@@ -4,7 +4,7 @@ import { ScrollView } from "react-native";
 import {
   Column,
   ArtistsList,
-  MusicsList,
+  TracksList,
   SearchInput,
   Row,
 } from "src/components";
@@ -14,7 +14,7 @@ const Search: FC = () => {
   const [searchField, setSearchField] = useState<string>("");
   const [isClosed, setIsClosed] = useState<boolean>(false);
 
-  const handleChange = (value) => {
+  const handleChange = (value: string) => {
     console.log("value", value);
     setSearchField(value);
   };
@@ -42,7 +42,7 @@ const Search: FC = () => {
 
         <ArtistsList searching={searchField} />
 
-        <MusicsList searching={searchField} />
+        <TracksList searching={searchField} />
       </Column>
     </ScrollView>
   );

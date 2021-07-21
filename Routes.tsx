@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const { Navigator, Screen } = createStackNavigator();
 
-import { Home, Form, Search, Artist } from "src/screens";
+import { Home, Form, Search, Artist, Music } from "src/screens";
 
 import { theme } from "src/theme";
 
@@ -20,6 +20,7 @@ const Routes: FC = () => (
     <Screen name="Form" component={Form} />
     <Screen name="Search" component={Search} />
     <Screen name="Artist" component={Artist} />
+    <Screen name="Music" component={Music} />
   </Navigator>
 );
 
