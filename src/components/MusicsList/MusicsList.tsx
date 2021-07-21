@@ -1,38 +1,39 @@
 import React, { FC, useEffect, useState } from "react";
+
 import { FlatList, ActivityIndicator } from "react-native";
 
-import ArtistItem, { ArtistItemProps } from "./ArtistItem";
-import { Column, Row } from "src/components";
+import { Column, Row, Text } from "src/components";
+
+import MusicItem, { MusicItemProps } from "./MusicItem";
 
 import { getArtists } from "src/services";
 
-import { SearchProps } from "src/components/MusicsList";
+export interface SearchProps {
+  searching: string;
+}
 
-const LIMIT_SEARCH_ARTISTS = 1;
+const LIMIT_SEARCH_MUSICS = 3;
 
-const ArtistsListComponent: FC<SearchProps> = ({ searching }) => {
-  const [artistsList, setArtistsList] = useState<ArtistItemProps[]>([]);
+const MusicsList: FC<SearchProps> = ({ searching }) => {
+  const [musicsList, setMusicsList] = useState<MusicItemProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (searching) {
-          const response = await getArtists(searching, LIMIT_SEARCH_ARTISTS);
+          const response;
 
-          const artists = [
+          const musics = [
             ...response.message.body.artist_list.map(({ artist }) => {
               return {
                 id: artist.artist_id,
                 name: artist.artist_name,
-                country: artist.artist_country,
-                rating: artist.artist_rating,
-                twitter: artist.artist_twitter,
-                aliasList: artist.artist_alias_list,
+                image_path: "",
               };
             }),
           ];
 
-          setArtistsList(artists);
+          setMusicsList(musics);
         }
       } catch (err) {
         console.log("err", err);
@@ -46,10 +47,10 @@ const ArtistsListComponent: FC<SearchProps> = ({ searching }) => {
     <Column alignItems="center" flex={1} justifyContent="center">
       {searching !== "" && (
         <Row alignItems="center">
-          {artistsList && (
+          {musicsList && (
             <FlatList
-              renderItem={({ item }) => <ArtistItem {...item} />}
-              data={artistsList}
+              renderItem={({ item }) => <MusicItem {...item} />}
+              data={musicsList}
             />
           )}
         </Row>
@@ -58,4 +59,4 @@ const ArtistsListComponent: FC<SearchProps> = ({ searching }) => {
   );
 };
 
-export default ArtistsListComponent;
+export default MusicsList;

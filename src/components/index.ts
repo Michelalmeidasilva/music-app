@@ -6,3 +6,4 @@ export * from "./Input";
 export * from "./KeyboardAwareScrollView";
 export * from "./ArtistsList";
 export * from "./SearchInput";
+export * from "./MusicsList";

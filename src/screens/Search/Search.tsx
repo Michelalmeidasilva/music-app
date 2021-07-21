@@ -1,7 +1,13 @@
 import React, { FC, useState } from "react";
 import { ScrollView } from "react-native";
 
-import { Column, ArtistsList, SearchInput, Row } from "src/components";
+import {
+  Column,
+  ArtistsList,
+  MusicsList,
+  SearchInput,
+  Row,
+} from "src/components";
 import { useEffect } from "react";
 
 const Search: FC = () => {
@@ -35,6 +41,8 @@ const Search: FC = () => {
         </Row>
 
         <ArtistsList searching={searchField} />
+
+        <MusicsList searching={searchField} />
       </Column>
     </ScrollView>
   );
