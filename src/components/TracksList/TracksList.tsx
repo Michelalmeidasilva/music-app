@@ -15,7 +15,7 @@ export interface SearchProps {
 
 const LIMIT_SEARCH_MUSICS = 3;
 
-async function loadGraphicCards(searchUrl) {
+async function loadGraphicCards(searchUrl: string) {
   const response = await fetch(searchUrl); // fetch page
   return response.text();
 }
@@ -33,7 +33,7 @@ const TracksList: FC<SearchProps> = ({ searching }) => {
               ...response?.message?.body?.track_list?.map(
                 async ({ track }: any) => {
                   const trackHtml = await loadGraphicCards(
-                    "https://www.musixmatch.com/lyrics/Jon-Hassell-and-Bluescreen/Club-Zombie?utm_source=application&utm_campaign=api&utm_medium=nenhum%2Fa%3A1409621999833"
+                    track.track_share_url
                   );
                   const rootNode = DomSelector(trackHtml);
                   const imagePath = rootNode.getElementsByClassName(
@@ -55,7 +55,6 @@ const TracksList: FC<SearchProps> = ({ searching }) => {
           ];
 
           setTracksList(tracks);
-          console.log(JSON.stringify(tracks, null, 2));
         }
       } catch (err) {
         console.log("err", err);

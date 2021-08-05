@@ -15,7 +15,6 @@ const Search: FC = () => {
   const [isClosed, setIsClosed] = useState<boolean>(false);
 
   const handleChange = (value: string) => {
-    console.log("value", value);
     setSearchField(value);
   };
 
@@ -29,7 +28,7 @@ const Search: FC = () => {
             bg={"purple"}
             height={36}
             width="100%"
-            placeholder="Procure um artista"
+            placeholder="Procure uma música ou artista."
             returnKeyType="next"
             onClose={() => {
               handleChange("");
