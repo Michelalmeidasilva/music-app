@@ -7,26 +7,29 @@ import { useNavigation } from "@react-navigation/native";
 import { Column, Text } from "src/components";
 import { ColumnProps } from "../Column";
 
-export interface ArtistItemProps {
+export interface TrackItemProps {
   id: number;
   name: string;
-  country?: string;
-  rating?: number;
-  twitter?: string;
-  image_path?: string;
-  aliasList?: string[];
+  album_name: string;
+  album_id: number;
+  artist_name: string;
+  artist_id: number;
+  image_path: string;
 }
 
-const ArtistItemComponent: FC<ArtistItemProps> = ({
+const TrackItemComponent: FC<TrackItemProps> = ({
   id,
   name,
-  twitter,
+  album_name,
+  album_id,
+  artist_name,
+  artist_id,
   image_path,
 }): JSX.Element => {
   const navigation = useNavigation();
 
   return (
-    <ItemContainer key={id} onPress={() => navigation.push("Artist")}>
+    <ItemContainer key={id} onPress={() => navigation.push("Music")}>
       <Column p="5px">
         <Image
           source={{
@@ -37,17 +40,14 @@ const ArtistItemComponent: FC<ArtistItemProps> = ({
           style={{ width: 40, height: 40, borderRadius: 40 }}
         />
       </Column>
-
       <Column pl="10px">
         <Text fontSize="14px" fontWeight={700} color="white">
           {name}
         </Text>
 
         <Text fontSize="12px" fontWeight={400} color="white">
-          Artist
+          Song
         </Text>
-
-        <Text>{twitter}</Text>
       </Column>
     </ItemContainer>
   );
@@ -61,4 +61,4 @@ const ItemContainer: FC<ItemContainerProps> = styled.TouchableOpacity<ItemContai
   padding: 10px;
 `;
 
-export default ArtistItemComponent;
+export default TrackItemComponent;

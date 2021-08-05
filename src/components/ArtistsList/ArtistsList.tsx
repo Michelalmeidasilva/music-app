@@ -1,19 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
 import { FlatList, ActivityIndicator } from "react-native";
 
-import ArtistItem, { Artist } from "./ArtistItem";
+import ArtistItem, { ArtistItemProps } from "./ArtistItem";
 import { Column, Row } from "src/components";
 
 import { getArtists } from "src/services";
 
-interface ArtistsListComponent {
-  searching: string;
-}
+import { SearchProps } from "src/components/TracksList";
 
 const LIMIT_SEARCH_ARTISTS = 1;
 
-const ArtistsListComponent: FC<ArtistsListComponent> = ({ searching }) => {
-  const [artistsList, setArtistsList] = useState<Artist[]>([]);
+const ArtistsListComponent: FC<SearchProps> = ({ searching }) => {
+  const [artistsList, setArtistsList] = useState<ArtistItemProps[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
