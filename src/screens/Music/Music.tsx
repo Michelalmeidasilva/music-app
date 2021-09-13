@@ -1,9 +1,19 @@
 import React, { FC } from "react";
+import { useEffect } from "react";
 import { ScrollView } from "react-native";
 
-import { Column, Text } from "src/components";
+import { Button, Column, Text } from "src/components";
+
+import { saveExample, downloadMusic, downloadFile } from "src/utils";
 
 const Music: FC = () => {
+  useEffect(() => {
+    // const syncSong = async () => {
+    //   await downloadMusic("");
+    // };
+    // syncSong();
+  });
+
   return (
     <ScrollView>
       <Column flex={1}>
@@ -17,6 +27,8 @@ const Music: FC = () => {
         >
           Music
         </Text>
+
+        <Button text="test" onPress={downloadFile}></Button>
       </Column>
     </ScrollView>
   );

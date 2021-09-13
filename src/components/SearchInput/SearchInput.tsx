@@ -54,7 +54,7 @@ const SearchInputComponent: FC<SearchInputComponentProps> = ({
       {...rest}
     >
       <Row pl="5px" justifyContent="center" alignItems="center" flex={1}>
-        <Icon name="search" size={14} color="white" />
+        {/* <Icon name="search" size={14} color="white" /> */}
 
         <Column ml="5px" width="88%">
           <StyledInput
@@ -62,7 +62,8 @@ const SearchInputComponent: FC<SearchInputComponentProps> = ({
             secureTextEntry={secureTextEntry}
             placeholder={placeholder}
             autoCapitalize={autoCapitalize}
-            type="search"
+            kerboardType="search"
+            returnKeyType="search"
             color="white"
             value={value}
             onFocus={() => setIsFocused(true)}

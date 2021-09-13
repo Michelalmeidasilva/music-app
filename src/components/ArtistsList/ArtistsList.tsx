@@ -12,6 +12,7 @@ const LIMIT_SEARCH_ARTISTS = 1;
 
 const ArtistsListComponent: FC<SearchProps> = ({ searching }) => {
   const [artistsList, setArtistsList] = useState<ArtistItemProps[]>([]);
+  console.log("test", searching);
 
   useEffect(() => {
     const fetchData = async () => {

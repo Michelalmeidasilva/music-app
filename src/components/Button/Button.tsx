@@ -10,8 +10,9 @@ import { ColumnProps, Text, Row } from "src/components";
 const PRIMARY = "primary";
 const SECONDARY = "secondary";
 const DISABLED = "disabled";
+const TRANSPARENT = "transparent";
 
-type ButtonVariants = "primary" | "secondary" | "disabled";
+type ButtonVariants = "primary" | "secondary" | "disabled" | "transparent";
 
 interface ButtonComponent extends ColumnProps, TouchableOpacityProps {
   text: string;
@@ -87,6 +88,10 @@ const StyledButton: FC<StyledButton> = styled.TouchableOpacity(
       [DISABLED]: {
         backgroundColor: "transparent",
         borderColor: "gray.n400",
+      },
+      [TRANSPARENT]: {
+        backgroundColor: "transparent",
+        borderColor: "transparent",
       },
     },
   }),

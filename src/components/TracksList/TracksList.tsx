@@ -23,35 +23,24 @@ async function loadGraphicCards(searchUrl: string) {
 const TracksList: FC<SearchProps> = ({ searching }) => {
   const [tracksList, setTracksList] = useState<TrackItemProps[]>([]);
 
+  console.log("test", searching);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (searching) {
           const response = await getTracks(searching, LIMIT_SEARCH_MUSICS);
           const tracks = [
-            await Promise.all([
-              ...response?.message?.body?.track_list?.map(
-                async ({ track }: any) => {
-                  const trackHtml = await loadGraphicCards(
-                    track.track_share_url
-                  );
-                  const rootNode = DomSelector(trackHtml);
-                  const imagePath = rootNode.getElementsByClassName(
-                    "banner-album-image-desktop"
-                  )[0].children[0].text;
-
-                  return {
-                    id: track.track_id,
-                    name: track.track_name,
-                    album_name: track.album_name,
-                    album_id: track.album_id,
-                    artist_name: track.artist_name,
-                    artist_id: track.album_id,
-                    image_path: imagePath,
-                  };
-                }
-              ),
-            ]),
+            ...response?.message?.body?.track_list?.map(({ track }) => {
+              return {
+                id: track.track_id,
+                name: track.track_name,
+                album_name: track.album_name,
+                album_id: track.album_id,
+                artist_name: track.artist_name,
+                artist_id: track.album_id,
+              };
+            }),
           ];
 
           setTracksList(tracks);
@@ -62,7 +51,7 @@ const TracksList: FC<SearchProps> = ({ searching }) => {
     };
 
     fetchData();
-  }, [searching]);
+  }, [tracksList]);
 
   return (
     <Column alignItems="center" flex={1} justifyContent="center">
